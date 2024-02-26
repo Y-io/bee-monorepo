@@ -25,11 +25,6 @@
         "^build"
       ]
     },
-    "dev": {
-      "dependsOn": [
-        "^build"
-      ]
-    },
     "test": {
       "inputs": [
         "noMarkdown",
