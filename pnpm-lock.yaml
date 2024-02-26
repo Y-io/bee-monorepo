@@ -29,6 +29,9 @@ importers:
       lerna:
         specifier: ^8.1.2
         version: 8.1.2
+      nx:
+        specifier: ^18.0.5
+        version: 18.0.5
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
