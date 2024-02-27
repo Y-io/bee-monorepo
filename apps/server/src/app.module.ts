@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './system/user/user.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { envValidation } from './env.validation';
+import { databaseConfig } from './config';
+import { DatabaseModule } from '@bee/database';
 
 @Module({
   imports: [
@@ -12,19 +13,9 @@ import { envValidation } from './env.validation';
       isGlobal: true,
       validate: envValidation,
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return {
-          type: 'postgres',
-          entities: [],
-          url: configService.get('DATABASE_URL'),
-          synchronize: true,
-          autoLoadEntities: true,
-        };
-      },
-    }),
+    DatabaseModule.forRoot(databaseConfig),
     UserModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
