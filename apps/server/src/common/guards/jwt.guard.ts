@@ -1,16 +1,20 @@
 import { Request } from 'express';
-import { CanActivate, ContextType, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ContextType,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { isSkipAuth } from '../decorators';
-import { AuthService, UserService } from '@/modules/user/services';
+
+// import { AuthService, UserService } from '@/modules/user/services';
 
 @Injectable()
 export class JwtGuard implements CanActivate {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authService: AuthService,
-  ) {}
+  // constructor() {} // private readonly authService: AuthService, // private readonly userService: UserService,
 
-  async canActivate(context: ExecutionContext): Promise<boolean> {
+  async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>();
 
     const token = request.headers['authorization'] ?? '';
@@ -30,22 +34,22 @@ export class JwtGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    if (type === 'Bearer') {
-      const payload = await this.authService.verifyToken(jwt);
-
-      try {
-        // 查找到用户
-        const user = await this.userService.findOne(payload.id);
-
-        if (!user) return false;
-
-        request.user = user;
-
-        return true;
-      } catch (e) {
-        return false;
-      }
-    }
+    // if (type === 'Bearer') {
+    //   const payload = await this.authService.verifyToken(jwt);
+    //
+    //   try {
+    //     // 查找到用户
+    //     const user = await this.userService.findOne(payload.id);
+    //
+    //     if (!user) return false;
+    //
+    //     request.user = user;
+    //
+    //     return true;
+    //   } catch (e) {
+    //     return false;
+    //   }
+    // }
 
     return false;
   }
