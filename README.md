@@ -8,8 +8,8 @@ Bee monorepo 是一个全栈项目，包含了后台管理系统和后端服务�
 2. <strong>lerna</strong> 管理和发布包，开发环境监听文件改动并自动构建包
 3. <strong>nx</strong> 可配置本地和远程缓存，加快构建时间，lerna 的缓存依赖 nx,多人开发时可以共享远程缓存，并提供 projects
    graph 可视化
-4. <strong>apps</strong> 目录下是项目
-5. <strong>packages</strong> 目录下是项目依赖包
+4. <strong>/apps</strong> 目录下是项目
+5. <strong>/packages</strong> 目录下是项目依赖包
     - <strong>/common</strong> 公共包
     - <strong>/backend</strong> 仅后端
     - <strong>/frontend</strong> 仅前端
