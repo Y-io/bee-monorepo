@@ -10,7 +10,7 @@ export class BeeConfigModule {
       useFactory: () => {
         const config = configRegister?.();
         const configServ = new BeeConfigService(config);
-     
+
         return configServ;
       },
     };
