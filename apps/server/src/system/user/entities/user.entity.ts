@@ -8,6 +8,9 @@ export class UserEntity extends AbstractBaseEntity {
   @Column({ nullable: true })
   password: string;
 
+  @Column()
+  username: string;
+
   @IsEmail()
   @Column({ unique: true, nullable: true })
   email: string;

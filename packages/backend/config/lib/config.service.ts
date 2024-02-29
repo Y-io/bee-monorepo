@@ -4,11 +4,11 @@ import parse from 'parse-duration';
 import { createJwtKeyPair } from './create-jwt-key-pair';
 
 @Injectable()
-export class BeeConfigService {
+export class ConfigService {
   private config: ConfigType;
 
-  constructor(config?: ConfigType) {
-    if (config && configSchema.partial().safeParse(config).success) {
+  constructor(config?: Partial<ConfigType>) {
+    if (configSchema.optional().safeParse(config).success) {
       this.config = config;
     }
 
@@ -73,7 +73,7 @@ export class BeeConfigService {
         ...this.config?.auth,
       },
     });
-    this.config = config;
+    this.config = config as Required<ConfigType>;
   }
 }
 

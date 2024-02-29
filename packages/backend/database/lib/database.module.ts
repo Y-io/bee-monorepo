@@ -7,14 +7,37 @@ import {
 
 import { ENTITY_REPOSITORY_DEF } from './entity-repository.decorator';
 import { DataSource } from 'typeorm';
+import { ConfigModule, ConfigService } from '@bee/config';
 
 @Module({})
 export class DatabaseModule {
-  static forRoot(configRegister: () => TypeOrmModuleOptions): DynamicModule {
+  static forRoot(
+    configRegister?: (() => TypeOrmModuleOptions) | TypeOrmModuleOptions,
+  ): DynamicModule {
     return {
       global: true,
       module: DatabaseModule,
-      imports: [TypeOrmModule.forRoot(configRegister())],
+      imports: [
+        TypeOrmModule.forRootAsync({
+          imports: [ConfigModule],
+          inject: [ConfigService],
+          useFactory: async (configService: ConfigService) => {
+            const config =
+              typeof configRegister === 'function'
+                ? configRegister()
+                : configRegister;
+
+            return {
+              type: 'postgres',
+              username: configService.db.user,
+              password: configService.db.password,
+              database: configService.db.database,
+              port: configService.db.port,
+              ...config,
+            } as TypeOrmModuleOptions;
+          },
+        }),
+      ],
     };
   }
 

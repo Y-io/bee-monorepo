@@ -1,15 +1,15 @@
 import { DynamicModule, FactoryProvider, Module } from '@nestjs/common';
 import { ConfigType } from './config.interface';
-import { BeeConfigService } from './config.service';
+import { ConfigService } from './config.service';
 
 @Module({})
-export class BeeConfigModule {
+export class ConfigModule {
   static forRoot(configRegister?: () => ConfigType): DynamicModule {
     const provider: FactoryProvider<ConfigType> = {
-      provide: BeeConfigService,
+      provide: ConfigService,
       useFactory: () => {
         const config = configRegister?.();
-        const configServ = new BeeConfigService(config);
+        const configServ = new ConfigService(config);
 
         return configServ;
       },
@@ -17,7 +17,7 @@ export class BeeConfigModule {
 
     return {
       global: true,
-      module: BeeConfigModule,
+      module: ConfigModule,
       providers: [provider],
       exports: [provider],
     };

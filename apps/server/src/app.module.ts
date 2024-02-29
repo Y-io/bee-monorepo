@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './system/user/user.module';
-import { databaseConfig } from './config';
 import { DatabaseModule } from '@bee/database';
-import { BeeConfigModule } from '@bee/config';
+import { ConfigModule } from '@bee/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    BeeConfigModule.forRoot(),
-    DatabaseModule.forRoot(databaseConfig),
+    ConfigModule.forRoot(),
+    DatabaseModule.forRoot({
+      synchronize: true,
+      autoLoadEntities: true,
+    }),
     UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import parse from 'parse-duration';
-import _ from 'lodash';
 
 export enum EnvEnum {
   Development = 'development',
@@ -56,11 +54,6 @@ export const dbSchema = z.object({
 export const redisSchema = z.object({
   host: z.string(),
   port: z.number(),
-});
-
-const tokenExpiresInSchema = z.string().transform((v) => {
-  console.log({ v });
-  return _.isNaN(Number(v)) ? parse(v) / 1000 : Number(v);
 });
 
 export const authSchema = z.object({
