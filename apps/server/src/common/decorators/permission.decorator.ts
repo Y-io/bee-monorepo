@@ -12,10 +12,7 @@ export enum PermissionType {
 
 type PermissionIdentify = `${string}:${PermissionAction}:${string}`;
 
-export function Permission(options: {
-  name: string;
-  identify: PermissionIdentify;
-}) {
+export function Permission(options: { name: string; identify: PermissionIdentify }) {
   return (target: any, propertyKey: string) => {
     Reflect.defineMetadata(PERMISSION_DEF, options, target, propertyKey);
   };
