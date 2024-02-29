@@ -12,6 +12,8 @@ Bee monorepo 是一个全栈项目，包含了后台管理系统和后端服务�
 5. <strong>/packages</strong> 目录下是项目依赖包
     - <strong>/common</strong> 公共包
     - <strong>/backend</strong> 仅后端
+        - <strong>/database</strong> 数据库模块
+        - <strong>/config</strong> 配置模块
     - <strong>/frontend</strong> 仅前端
 
 ## 运行项目
