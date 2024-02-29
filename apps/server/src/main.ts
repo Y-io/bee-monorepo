@@ -4,8 +4,9 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { ConfigService } from '@nestjs/config';
+// import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { BeeConfigService } from '@bee/config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,8 +14,8 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT') || 3000;
+  const configService = app.get(BeeConfigService);
+  const port = configService.port;
 
   app.setGlobalPrefix('api');
 

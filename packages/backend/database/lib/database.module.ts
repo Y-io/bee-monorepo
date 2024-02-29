@@ -11,7 +11,6 @@ import { DataSource } from 'typeorm';
 @Module({})
 export class DatabaseModule {
   static forRoot(configRegister: () => TypeOrmModuleOptions): DynamicModule {
-    console.log(configRegister());
     return {
       global: true,
       module: DatabaseModule,
